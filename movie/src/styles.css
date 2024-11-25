@@ -1,4 +1,4 @@
-body {
+/* body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     background-color: #141414;
@@ -67,9 +67,8 @@ body {
   }
   
   .movie-cards::-webkit-scrollbar {
-    display: none; /* 스크롤바 숨기기 */
+    display: none; 
   }
-
   
   .movie-card {
   min-width: 300px;
@@ -81,6 +80,13 @@ body {
   transition: transform 0.3s ease;
 }
 
+.movie-card-title {
+    max-width: 200px; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;   }
+  
 .movie-card:hover {
   transform: scale(1.05);
 }
@@ -96,4 +102,4 @@ body {
   margin-top: 10px;
   font-size: 1rem;
   color: #ddd;
-}
+} */
