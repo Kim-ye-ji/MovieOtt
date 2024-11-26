@@ -10,7 +10,9 @@ function MovieCard({ movie }) {
         src={`${imageBaseURL}${movie.poster_path}`}
         alt={movie.title}
       />
-      <h3 className="movie-card__title">{movie.title}</h3>
+      <div className="movie-card__overlay">
+        <h3 className="movie-card__title">{movie.title}</h3>
+      </div>
     </div>
   );
 }
