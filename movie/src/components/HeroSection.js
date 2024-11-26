@@ -2,61 +2,47 @@ import React, { useState, useEffect } from "react";
 
 function HeroSection() {
   const [isHovered, setIsHovered] = useState(false);
-  const [heroImages, setHeroImages] = useState([]);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  const movieIds = [402431, 603692, 640146, 550]; // 여러 영화 ID
-  const apiKey = "3d4382dd61ea247199891426b2c7a4ba";
+  const [heroMovies, setHeroMovies] = useState([]);
+  const [currentMovieIndex, setCurrentMovieIndex] = useState(0);
+  const [showInfo, setShowInfo] = useState(false);
 
   useEffect(() => {
-    const fetchHeroImages = async () => {
-      const allImages = [];
+    const fetchHeroMovies = async () => {
+      const apiKey = "3d4382dd61ea247199891426b2c7a4ba";
 
-      for (const movieId of movieIds) {
-        try {
-          const response = await fetch(
-            `https://api.themoviedb.org/3/movie/${movieId}/images?api_key=${apiKey}`
-          );
-          const data = await response.json();
-          if (data && data.backdrops) {
-            allImages.push({
-              movieId,
-              backdrops: data.backdrops,
-            });
-          }
-        } catch (error) {
-          console.error(`Error fetching images for movie ${movieId}:`, error);
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-KR`
+        );
+        const data = await response.json();
+
+        if (data && data.results) {
+          setHeroMovies(data.results);
         }
+      } catch (error) {
+        console.error("Error fetching hero movies:", error);
       }
-
-      // 각 영화의 첫 번째 이미지를 heroImages로 설정
-      const firstImages = allImages
-        .map((movie) => ({
-          movieId: movie.movieId,
-          file_path: movie.backdrops[0]?.file_path,
-        }))
-        .filter((img) => img.file_path);
-
-      setHeroImages(firstImages);
     };
 
-    fetchHeroImages();
+    fetchHeroMovies();
   }, []);
 
-  // 자동 슬라이드 설정
   useEffect(() => {
-    if (heroImages.length > 0) {
+    if (!showInfo) {
       const interval = setInterval(() => {
-        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
-      }, 5000); // 5초마다 슬라이드
+        setCurrentMovieIndex((prevIndex) => (prevIndex + 1) % heroMovies.length);
+      }, 5000); // 5초마다 슬라이드 전환
 
-      return () => clearInterval(interval);
+      return () => clearInterval(interval); // 컴포넌트 언마운트 시 interval 클리어
     }
-  }, [heroImages]);
+  }, [heroMovies, showInfo]);
 
-  // 토글 버튼 클릭 시 동작
+  const currentMovie =
+    heroMovies.length > 0 ? heroMovies[currentMovieIndex] : null;
+
   const handleToggleClick = (index) => {
-    setCurrentImageIndex(index);
+    setCurrentMovieIndex(index);
+    setShowInfo(false); // 슬라이드 전환 시 정보 닫기
   };
 
   return (
@@ -65,23 +51,48 @@ function HeroSection() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
-        backgroundImage: heroImages.length
-          ? `url(https://image.tmdb.org/t/p/original${heroImages[currentImageIndex]?.file_path})`
+        backgroundImage: currentMovie
+          ? `url(https://image.tmdb.org/t/p/original${currentMovie.backdrop_path})`
           : "none",
       }}
     >
       <div className="hero-content">
-        <button className="hero-button">Watch Now</button>
-        <button className="hero-button secondary">More Info</button>
+        <h1 className="hero-title">{currentMovie?.title || "Loading..."}</h1>
+        <button
+          className="hero-button"
+          onClick={() =>
+            window.open(
+              `https://www.themoviedb.org/movie/${currentMovie?.id}`,
+              "_blank"
+            )
+          }
+        >
+          Watch Now
+        </button>
+        <button
+          className="hero-button secondary"
+          onClick={() => setShowInfo((prev) => !prev)}
+        >
+          More Info
+        </button>
+
+        {/* 영화 상세 정보 표시 */}
+        {showInfo && currentMovie && (
+          <div className="hero-info">
+            <p><strong>개요:</strong> {currentMovie.overview || "정보 없음"}</p>
+            <p><strong>개봉일:</strong> {currentMovie.release_date || "미정"}</p>
+            <p><strong>평점:</strong> {currentMovie.vote_average || "N/A"}</p>
+          </div>
+        )}
       </div>
 
-      {/* 슬라이드 컨트롤 (하단 토글 버튼) */}
+      {/* 슬라이드 토글 버튼 */}
       <div className="hero-toggle">
-        {heroImages.map((_, index) => (
+        {heroMovies.map((_, index) => (
           <button
             key={index}
             className={`hero-toggle-button ${
-              index === currentImageIndex ? "active" : ""
+              currentMovieIndex === index ? "active" : ""
             }`}
             onClick={() => handleToggleClick(index)}
           />
