@@ -145,7 +145,7 @@ h1, h2, h3 {
 
   .hero-content {
     left: 20px; /* 왼쪽 여백을 줄여줌 */
-    bottom: 30px; /* 아래 여백을 줄여줌 */
+    bottom: 50px; /* 모바일에서 아래 여백을 늘려줌 */
     max-width: 80%; /* 콘텐츠가 더 넓게 차지하도록 */
   }
 
@@ -155,7 +155,7 @@ h1, h2, h3 {
   }
 
   .hero-toggle {
-    bottom: 15px; /* 슬라이드 토글 위치 조정 */
+    bottom: 25px; /* 슬라이드 토글 위치 조정 */
   }
 
   .hero-toggle-button {
@@ -171,7 +171,7 @@ h1, h2, h3 {
 
   .hero-content {
     left: 10px; /* 왼쪽 여백 더 줄임 */
-    bottom: 20px; /* 아래 여백 더 줄임 */
+    bottom: 80px; /* 제목과 버튼 간 여백을 추가하여 충분히 보이게 함 */
     max-width: 90%; /* 콘텐츠 더 넓게 */
   }
 
