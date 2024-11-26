@@ -73,7 +73,7 @@ h1, h2, h3 {
 /* Hero Section */
 .hero-section {
   position: relative;
-  height: 550px;
+  height: 600px;
   background-color: black;
   background-size: cover; /* 이미지를 잘리지 않게 전체 표시 */
   background-repeat: no-repeat; /* 반복 방지 */
