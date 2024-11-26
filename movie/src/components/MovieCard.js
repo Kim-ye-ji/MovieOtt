@@ -1,10 +1,10 @@
 import React from "react";
 
-function MovieCard({ movie }) {
+function MovieCard({ movie, onClick }) {
   const imageBaseURL = "https://image.tmdb.org/t/p/w780";
 
   return (
-    <div className="movie-card">
+    <div className="movie-card" onClick={() => onClick(movie)}>
       <img
         className="movie-card__image"
         src={`${imageBaseURL}${movie.poster_path}`}
