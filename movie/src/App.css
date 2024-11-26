@@ -77,7 +77,6 @@ h1, h2, h3 {
   background-color: black;
   background-size: cover; /* 이미지를 잘리지 않게 전체 표시 */
   background-repeat: no-repeat; /* 반복 방지 */
-  /* background-position: right top; 이미지 위쪽을 기준으로 정렬 */
   transition: all 0.5s ease-in-out;
   margin-bottom: 50px;
 }
@@ -86,7 +85,6 @@ h1, h2, h3 {
   transform: scale(1.03); /* 호버 시 확대 효과 */
   transition: all 0.5s ease-in-out;
 }
-
 
 .hero-content {
   position: absolute;
@@ -137,6 +135,63 @@ h1, h2, h3 {
 .hero-toggle-button.active {
   opacity: 1;
   background-color: red;
+}
+
+/* 반응형 디자인 적용 */
+@media (max-width: 768px) {
+  .hero-section {
+    height: 450px; /* 화면 크기에 맞춰 높이 조정 */
+  }
+
+  .hero-content {
+    left: 20px; /* 왼쪽 여백을 줄여줌 */
+    bottom: 30px; /* 아래 여백을 줄여줌 */
+    max-width: 80%; /* 콘텐츠가 더 넓게 차지하도록 */
+  }
+
+  .hero-button {
+    padding: 8px 16px; /* 버튼 크기 조정 */
+    font-size: 0.9rem; /* 폰트 크기 조정 */
+  }
+
+  .hero-toggle {
+    bottom: 15px; /* 슬라이드 토글 위치 조정 */
+  }
+
+  .hero-toggle-button {
+    width: 10px; /* 작은 화면에서 버튼 크기 축소 */
+    height: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    height: 350px; /* 화면 크기에 맞춰 더 작은 높이 설정 */
+  }
+
+  .hero-content {
+    left: 10px; /* 왼쪽 여백 더 줄임 */
+    bottom: 20px; /* 아래 여백 더 줄임 */
+    max-width: 90%; /* 콘텐츠 더 넓게 */
+  }
+
+  .hero-title {
+    font-size: 1.5rem; /* 모바일 화면에서 제목 크기 줄이기 */
+  }
+
+  .hero-button {
+    padding: 6px 12px; /* 버튼 크기 더 작게 */
+    font-size: 0.8rem; /* 폰트 크기 더 작게 */
+  }
+
+  .hero-toggle {
+    bottom: 10px; /* 슬라이드 토글 위치 더 아래로 */
+  }
+
+  .hero-toggle-button {
+    width: 8px; /* 버튼 크기 축소 */
+    height: 8px;
+  }
 }
 
 
