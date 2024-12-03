@@ -11,6 +11,7 @@ function MovieRow({ title, fetchURL }) {
       const response = await fetch(
         `https://api.themoviedb.org/3${fetchURL}?api_key=3d4382dd61ea247199891426b2c7a4ba&language=ko-KR`
       );
+
       const data = await response.json();
 
       const uniqueMovies = data.results.filter(
@@ -34,6 +35,7 @@ function MovieRow({ title, fetchURL }) {
     setSelectedMovie(null); // 선택 초기화
   };
 
+
   return (
     <div className="movie-row">
       <h2>{title}</h2>
@@ -55,7 +57,7 @@ function MovieRow({ title, fetchURL }) {
             onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 시 닫힘 방지
           >
             <button className="movie-details__close" onClick={closeModal}>
-              &times;
+              &times; {/* x 표시 */}
             </button>
             <img
               className="movie-details__image"
@@ -64,7 +66,7 @@ function MovieRow({ title, fetchURL }) {
             />
             <h3 className="movie-details__title">{selectedMovie.title}</h3>
             <p className="movie-details__description">
-              {selectedMovie.overview || "No description available."}
+              {selectedMovie.overview || "정보 없음"}
             </p>
             <p><strong>개봉일:</strong> {selectedMovie.release_date || "N/A"}</p>
             <p><strong>평점:</strong> {selectedMovie.vote_average || "N/A"}</p>
