@@ -66,8 +66,8 @@ function MovieRow({ title, fetchURL }) {
             <p className="movie-details__description">
               {selectedMovie.overview || "No description available."}
             </p>
-            <p><strong>Release Date:</strong> {selectedMovie.release_date || "N/A"}</p>
-            <p><strong>Rating:</strong> {selectedMovie.vote_average || "N/A"}</p>
+            <p><strong>개봉일:</strong> {selectedMovie.release_date || "N/A"}</p>
+            <p><strong>평점:</strong> {selectedMovie.vote_average || "N/A"}</p>
 
             {/* Watch Now 버튼 추가 */}
             <a
